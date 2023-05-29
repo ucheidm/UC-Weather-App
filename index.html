@@ -19,6 +19,7 @@
       <a href="https://app.netlify.com/teams/ucheidm/sites">Weather App</a>
     </div>
     <div class="container">
+      <div class="wrapper">
       <form id="myForm">
         <input
           type="search"
@@ -30,64 +31,41 @@
           id="search-city"
         />
         <input type="submit" class="btn btn-primary" , value="Search" />
-        <button type="submit" class="btn btn-success" id="current-button">
-          Current
-        </button>
+
         <p></p>
         <div class="result">
-          Results for <strong id="cityName">. Choose area</strong>
+          <h1 id="cityName"></h1>
         </div>
+
+        <div class="row">
+          <div class="col-6">
+            <img src="" id="icon" />
+            <strong class="temp"></strong>
+            <span id="units">
+              <a href="#" id="Celsius-link">℃</a>
+
+              |
+
+              <a href="#" id="Fahrenheit-link"> ℉.</a>
+            </span>
+          </div>
+
+          <div class="col-6">
+            <span id="time">friday,</span>
+            <span id="description">Thunder storms</span>
+
+            <div>
+              Humidity:<span id="humidity"></span>% Wind:<span id="wind"></span
+              >mph
+            </div>
+          </div>
+        </div>
+
         <h3></h3>
         <p></p>
         <h2></h2>
         <br />
 
-        <div class="row">
-          <div class="col-6">
-            <div class="card-body">
-              <p class="card-text">
-                <img
-                  src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-                  id="icon"
-                />
-                <strong class="changed">11111 </strong
-                ><span id="units">
-                  <a href="#" id="Celsius-link">℃</a>
-
-                  |
-
-                  <a href="#" id="Fahrenheit-link"> ℉.</a>
-                </span>
-              </p>
-            </div>
-          </div>
-          <div class="col-4">
-            <div class="card-body">
-              <small></small>
-              <ul class="weather">
-                <li>Precipation:<span id="Precipation"></span>%</li>
-                <li>Humidity:<span id="humidity"></span>%</li>
-                <li>Wind:<span id="wind"></span>mph</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-4">
-            <ul class="outside">
-              <strong>Weather</strong>
-
-              <li id="time">friday</li>
-              <li id="description">thunder storms</li>
-            </ul>
-          </div>
-        </div>
-
-        <br />
-        <div class="row">
-          <div class="col-3">Temperature |</div>
-          <div class="col-3">Precipitation |</div>
-          <div class="col-3">Wind</div>
-        </div>
-        <br />
         <br />
         <div class="row">
           <div class="col">
@@ -163,78 +141,6 @@
         </div>
       </form>
     </div>
-    <script>
-      let date = new Date();
-
-      let showTime = document.querySelector("#time");
-
-      let hours = date.getHours();
-
-      if (hours < 10) {
-        hours = `0${hours}`;
-      }
-
-      let minutes = date.getMinutes();
-      if (minutes < 10) {
-        minutes = `0${minutes}`;
-      }
-
-      let days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ];
-      let weekday = days[date.getDay(2)];
-
-      showTime.innerHTML = `${weekday} ${hours}:${minutes}`;
-
-      function currentCity(response) {
-        let city = document.querySelector("#cityName");
-        city.innerHTML = response.data.name;
-
-        //console.log(response.data);
-
-        let humidity = document.querySelector("#humidity");
-        humidity.innerHTML = response.data.main.humidity;
-
-        let wind = document.querySelector("#wind");
-        wind.innerHTML = Math.round(response.data.wind.speed);
-
-        let temperature = document.querySelector("#changed");
-        temperature = Math.round(response.data.main.temp);
-
-        let description = document.querySelector("#description");
-        description.innerHTML = response.data.weather[0].description;
-
-        let icons = document.querySelector("#icon");
-        icons.setAttribute(
-          "src",
-          `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-        );
-      }
-
-      function searching(cityName) {
-        let apiKey = "84e1c9463953605b19de1b1f09a0a7d7";
-
-        let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=84e1c9463953605b19de1b1f09a0a7d7`;
-
-        axios.get(apiUrl).then(currentCity);
-      }
-
-      function submitButton(event) {
-        event.preventDefault();
-        let searchCity = document.querySelector("#search-city");
-
-        searching(searchCity.value);
-      }
-      searching("Nigeria");
-
-      let form = document.querySelector("#myForm");
-      form.addEventListener("submit", submitButton);
-    </script>
-  </body>
-</html>
+    <script src="src/app.js"></script>
+    </body>
+    </html>
