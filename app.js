@@ -32,7 +32,8 @@ function currentCity(response) {
   //console.log(response.data);
 
   let temperature = document.querySelector("#temp");
-  temperature.innerHTML = Math.round(response.data.main.temp);
+  Celsius = response.data.main.temp;
+  temperature.innerHTML = Math.round(Celsius);
 
   let showTime = document.querySelector("#time");
   showTime.innerHTML = formatTime(response.data.dt * 1000);
@@ -67,7 +68,30 @@ function submitButton(event) {
 
   searching(searchCity.value);
 }
-searching("Nigeria");
+
+function showFahrenheit(event) {
+  event.preventDefault();
+
+  let temperature = document.querySelector("#temp");
+  let fahrenheit = (Celsius * 9) / 5 + 32;
+  temperature.innerHTML = Math.round(fahrenheit);
+}
+function showCelsius(event) {
+  event.preventDefault();
+
+  let temperature = document.querySelector("#temp");
+  temperature.innerHTML = Math.round(Celsius);
+}
+
+let Celsius = null;
 
 let form = document.querySelector("#myForm");
 form.addEventListener("submit", submitButton);
+
+let fahrenheitLink = document.querySelector("#Fahrenheit-link");
+fahrenheitLink.addEventListener("click", showFahrenheit);
+
+let celsiusLink = document.querySelector("#Celsius-link");
+celsiusLink.addEventListener("click", showCelsius);
+
+searching("Nigeria");
