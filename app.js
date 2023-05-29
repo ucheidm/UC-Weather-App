@@ -29,7 +29,7 @@ function currentCity(response) {
   let city = document.querySelector("#cityName");
   city.innerHTML = response.data.name;
 
-  console.log(response);
+  //console.log(response.data);
 
   let temperature = document.querySelector("#temp");
   temperature.innerHTML = Math.round(response.data.main.temp);
