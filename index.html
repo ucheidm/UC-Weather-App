@@ -12,42 +12,56 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="src/style.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div>
-      <a href="https://app.netlify.com/teams/ucheidm/sites">Weather App</a>
-    </div>
     <div class="container">
+      <div id="netlify">
+        <a href="https://app.netlify.com/teams/ucheidm/sites">Weather App</a>
+      </div>
       <div class="wrapper">
         <form id="myForm">
-          <input
-            type="search"
-            placeholder="Enter your country"
-            ,
-            autocomplete="off"
-            ,autofocus="on"
-            ,
-            id="search-city"
-          />
-          <input type="submit" class="btn btn-primary" , value="Search" />
+          <div class="row">
+            <div class="col-9">
+              <input
+                type="search"
+                placeholder="Enter your country"
+                ,
+                autocomplete="off"
+                ,autofocus="on"
+                ,
+                class="form-control"
+                ,
+                id="search-city"
+              />
+            </div>
+            <div class="col-2">
+              <input
+                type="submit"
+                class="btn btn-primary w-100"
+                ,
+                value="Search"
+              />
+            </div>
+          </div>
 
-          <p></p>
           <div class="result">
             <h1 id="cityName"></h1>
           </div>
 
           <div class="row">
             <div class="col-6">
-              <img src="" id="icon" />
-              <strong id="temp"></strong>
-              <span id="units">
-                <a href="#" id="Celsius-link">℃</a>
+              <div class="d-flex weather">
+                <img src="" id="icon" />
+                <strong id="temp"></strong>
+                <span id="units">
+                  <a href="#" id="Celsius-link">℃</a>
 
-                |
+                  |
 
-                <a href="#" id="Fahrenheit-link"> ℉.</a>
-              </span>
+                  <a href="#" id="Fahrenheit-link"> ℉.</a>
+                </span>
+              </div>
             </div>
 
             <div class="col-6">
@@ -62,11 +76,6 @@
               </div>
             </div>
           </div>
-
-          <h3></h3>
-          <p></p>
-          <h2></h2>
-          <br />
 
           <br />
           <div class="row">
@@ -143,7 +152,11 @@
           </div>
         </form>
       </div>
+      <a href="https://github.com/ucheidm/UC-Weather-App" target="blank">
+        OpenSource Code
+      </a>
+      By Uche Okafor
     </div>
-    <script src="src/app.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
