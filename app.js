@@ -25,7 +25,7 @@ function formatTime(timestamp) {
   return `${weekday} ${hours}:${minutes}`;
 }
 
-function showForecast() {
+function showForecast(response) {
   let forecast = document.querySelector("#forecast");
   let days = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
 
@@ -50,6 +50,12 @@ function showForecast() {
 
   forecastHTML = forecastHTML + `</div>`;
   forecast.innerHTML = forecastHTML;
+}
+
+function forecastDisplay(coordinates) {
+  let apiKey = "84e1c9463953605b19de1b1f09a0a7d7";
+  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`;
+  axios.get(apiUrl).then(showForecast);
 }
 
 function currentCity(response) {
@@ -79,12 +85,13 @@ function currentCity(response) {
     "src",
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
+  forecastDisplay(response.data.coord);
 }
 
 function searching(cityName) {
   let apiKey = "84e1c9463953605b19de1b1f09a0a7d7";
 
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=84e1c9463953605b19de1b1f09a0a7d7`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
 
   axios.get(apiUrl).then(currentCity);
 }
@@ -122,5 +129,3 @@ let celsiusLink = document.querySelector("#Celsius-link");
 celsiusLink.addEventListener("click", showCelsius);
 
 searching("Nigeria");
-
-showForecast();
