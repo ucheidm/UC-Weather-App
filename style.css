@@ -3,9 +3,6 @@ body {
   font-family: "Google Sans", arial, sans-serif;
 }
 
-h2 {
-  color: green;
-}
 h1 {
   box-sizing: border-box;
   display: block;
@@ -14,6 +11,7 @@ h1 {
   margin-left: 0px;
   margin-right: 0px;
   margin-top: 20px;
+
   width: 296px;
   font-family: Cerebri-Sans, Helvetica, Arial, sans-serif;
   font-size: 38px;
@@ -27,7 +25,7 @@ strong {
   display: inline;
   height: auto;
   width: auto;
-  font-family: "Google Sans", arial, sans-serif;
+
   font-size: 48px;
   font-weight: 400;
   letter-spacing: normal;
@@ -53,15 +51,15 @@ strong {
   margin: 100px 250px;
 }
 
-.day {
+.weather-forecast {
   color: rgb(6, 13, 238);
+  margin-top: 20px;
+  text-align: center;
 }
-.col {
-  color: rgb(6, 13, 238);
-}
-.description {
+.col-6 {
   text-transform: capitalize;
 }
+
 .netlify {
   display: block;
   margin-bottom: 0px;
