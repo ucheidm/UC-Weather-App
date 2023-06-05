@@ -26,7 +26,7 @@ function formatTime(timestamp) {
 }
 
 function formatWeek(timestamp) {
-  let date = new Date(timestamp);
+  let date = new Date(timestamp * 1000);
   let day = date.getDay();
   let days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
 
@@ -34,7 +34,7 @@ function formatWeek(timestamp) {
 }
 
 function showForecast(response) {
-  console.log(response.data);
+  //console.log(response.data);
 
   let weatherForecast = response.data.daily;
 
