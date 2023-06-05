@@ -28,14 +28,12 @@ function formatTime(timestamp) {
 function formatWeek(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
-  let days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   return days[day];
 }
 
 function showForecast(response) {
-  //console.log(response.data);
-
   let weatherForecast = response.data.daily;
 
   let forecast = document.querySelector("#forecast");
@@ -69,24 +67,12 @@ function showForecast(response) {
 }
 
 function forecastDisplay(coordinates) {
-  console.log(coordinates);
+  //console.log(coordinates);
   let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showForecast);
 }
 
-/*function forecastDisplay(coordinates) {
-  //console.log(coordinates);
-  let apiKey = "84e1c9463953605b19de1b1f09a0a7d7";
-  //let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${apiKey}`;
-
-  //let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${apiKey}`;
-
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
-
-  axios.get(apiUrl).then(showForecast);
-}
-*/
 function currentCity(response) {
   let city = document.querySelector("#cityName");
   city.innerHTML = response.data.name;
