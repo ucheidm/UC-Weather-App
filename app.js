@@ -25,27 +25,43 @@ function formatTime(timestamp) {
   return `${weekday} ${hours}:${minutes}`;
 }
 
-function showForecast(response) {
-  let forecast = document.querySelector("#forecast");
-  let days = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
+function formatWeek(timestamp) {
+  let date = new Date(timestamp);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
 
-  let forecastHTML = `<div class ="row">`;
-  days.forEach(function (weekday) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col">
-      <div class = "weather-days">${weekday}</div>
+  return days[day];
+}
+
+function showForecast(response) {
+  console.log(response.data);
+
+  let weatherForecast = response.data.daily;
+
+  let forecast = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+  weatherForecast.forEach(function (forecastWeek, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col">
+      <div class = "weather-days">${formatWeek(forecastWeek.dt)}</div>
       
+
       <img
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAdVJREFUaN7tmc1thDAQRimBElwCJVBCSvAxR5fgEiiBEiiBErhyIx24A2cc2WhiAf4ZA1rJkZ4UZZPN9/AwHrON1rr5ZJoqUAWqQBWoAlWgxJf++WaAAGZAAdpD2dfM7zDS/yopAGE6YDoIHMLIdK8KQIAWGIAtQ8Bh/r59bQWQjCBILCkSJIF1XVuAA9Jivm9ROd0ukS0AQTtgA7SH+Vn31EoEBSAMA2YUUAHiJDyWcCtBuidIArZEroJewVEpjQSJjiIgMsMbpHdjf53sCcEWSxEYCQKOyZQhkshZBZYkYEtHeLVPQSGJnHIS0QI2/FIo+L+VILTXOUVA3BD+D3Q/pAqoFIEebUxFQQLJN/Ojo0TEqDG/JgBv1hdgeVNAP4CKPSvkCKiCQc1KSMRs2+x902hO/Z4cYFhgWOQHY8zo9hOKgCCGH71BEXcqHjEBKDft5gowypVH4YeLgKE9ZSO10cxz7z7TFJqxOEUgZxyYbPi+0M4uSRuZPYCnCPBA6TwrYCWWyFbJImo/FTMpM6pAG5CYvDO0LDii7x2JNAtdSGxuQyp41Q87UqkHW8NJzYsbw+8d6Y5Hi+7qbw8IyOIPd9HRVD8qUD8fqAJVoApUgSrwqfwCJ6xaZshM+xMAAAAASUVORK5CYII="
-        id="icon"
-      />
-      <p class="day">
-        34° <small>25°</small>
-      </p>
-    </div>
-  
-`;
+        src="https://openweathermap.org/img/wn/${
+          forecastWeek.weather[0].icon
+        }@2x.png" alt="" width="40"/>
+      
+     <div class="dayElement">
+       <span id ="forecast-Max"> ${Math.round(forecastWeek.temp.max)}°</span>
+       <span id = "forecast-Min"><small>${Math.round(
+         forecastWeek.temp.min
+       )}°</small></span> 
+      </div>
+      </div>`;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
@@ -53,16 +69,27 @@ function showForecast(response) {
 }
 
 function forecastDisplay(coordinates) {
-  let apiKey = "84e1c9463953605b19de1b1f09a0a7d7";
-  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`;
+  console.log(coordinates);
+  let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showForecast);
 }
 
+/*function forecastDisplay(coordinates) {
+  //console.log(coordinates);
+  let apiKey = "84e1c9463953605b19de1b1f09a0a7d7";
+  //let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${apiKey}`;
+
+  //let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${apiKey}`;
+
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(showForecast);
+}
+*/
 function currentCity(response) {
   let city = document.querySelector("#cityName");
   city.innerHTML = response.data.name;
-
-  //console.log(response.data);
 
   let temperature = document.querySelector("#temp");
   Celsius = response.data.main.temp;
@@ -85,14 +112,15 @@ function currentCity(response) {
     "src",
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
+  icons.setAttribute("alt", response.data.weather[0].description);
+
   forecastDisplay(response.data.coord);
 }
 
-function searching(cityName) {
+function search(cityName) {
   let apiKey = "84e1c9463953605b19de1b1f09a0a7d7";
 
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
-
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(currentCity);
 }
 
@@ -100,7 +128,7 @@ function submitButton(event) {
   event.preventDefault();
   let searchCity = document.querySelector("#search-city");
 
-  searching(searchCity.value);
+  search(searchCity.value);
 }
 
 function showFahrenheit(event) {
@@ -128,4 +156,4 @@ fahrenheitLink.addEventListener("click", showFahrenheit);
 let celsiusLink = document.querySelector("#Celsius-link");
 celsiusLink.addEventListener("click", showCelsius);
 
-searching("Nigeria");
+search("Nigeria");
