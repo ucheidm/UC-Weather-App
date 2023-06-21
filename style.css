@@ -46,12 +46,12 @@ strong {
 
 .wrapper {
   max-width: 800px;
-  padding: 80px 80px;
+  margin: auto;
+  padding: 50px 50px;
   border: 5px solid blueviolet;
-  margin: 100px 250px;
+
   border-radius: 20px;
 }
-
 .weather-forecast {
   color: rgb(6, 13, 238);
   margin-bottom: 200px;
@@ -60,4 +60,13 @@ strong {
 }
 .col-6 {
   text-transform: capitalize;
+}
+
+.app-link {
+  text-align: center;
+}
+.netlify {
+  margin-top: 100px;
+  text-align: center;
+  padding-bottom: 10px;
 }
